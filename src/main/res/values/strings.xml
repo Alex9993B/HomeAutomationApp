@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Home Automation App</string>
+    <string name="icon_mic">Microphone input icon</string>
+    <string name="Voice_text"> </string>
+</resources>
