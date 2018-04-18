@@ -76,7 +76,7 @@ public class BluetoothArduino extends Thread  {
             robotName = Name;
             mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         } catch (Exception e) {
-            LogError("\t\t[#]Erro creating Bluetooth! : " + e.getMessage());
+            LogError("\t\t[#]Error creating Bluetooth! : " + e.getMessage());
         }
     }
 
@@ -173,18 +173,27 @@ public class BluetoothArduino extends Thread  {
      * @param msg received messaged
      */
     private void messageReceived(String msg) {
+
         Log.d("Automation System","Message added "+msg);
 
-        mMessages.add(msg);
+    mMessages.add(msg);
+
         //Received message
         messageInserted = getLastMessage();
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-            Toast.makeText(context,messageInserted,Toast.LENGTH_SHORT).show();
+            main.runOnUiThread(new Runnable() {
 
-            }
-        });
+                @Override
+                public void run() {
+                    try {
+                        Toast.makeText(context, messageInserted, Toast.LENGTH_SHORT).show();
+                    } catch (NullPointerException nullPointer)
+                    {
+                        LogError("->[#]Failed to receive message: " + nullPointer.getMessage());
+                    }
+
+                }
+            });
+
 
     }
 
